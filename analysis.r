@@ -87,6 +87,6 @@ fun2 <- dnorm(x2, mean = mean_distracted_accuracy, sd = sd_distracted_accuracy)
 
 # Histogram
 hist(distracted_accuracy, prob = TRUE, col = "white",
-     ylim = c(0, max(fun)+5),
+     ylim = c(0, max(fun)+1),
      main = "Distraction Accuracy Distrubution")
 lines(x2, fun, col = 2, lwd = 2)
