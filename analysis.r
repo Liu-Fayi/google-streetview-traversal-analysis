@@ -23,6 +23,12 @@ sd_distracted_error <- sd(distracted_error)
 sd_normal_accuracy <- sd(normal_accuracy)
 sd_distracted_accuracy <- sd(distracted_accuracy)
 
+hist(normal_time, breaks = 7)
+hist(distracted_time, breaks = 7)
+hist(normal_error, breaks = 7)
+hist(distracted_error, breaks = 7)
+hist(normal_accuracy, breaks = 7)
+hist(distracted_accuracy, breaks = 7)
 curve(dnorm(x, mean = mean_normal_time, sd = sd_normal_time), from = 0, to = 500)
 curve(dnorm(x, mean = mean_distracted_time, sd = sd_distracted_time), from = 0, to = 500)
 curve(dnorm(x, mean = mean_normal_error, sd = sd_normal_error), from = 0, to = 20)
@@ -35,3 +41,52 @@ t_test_time <- t.test(normal_time, distracted_time, mu = 0, var.equal = FALSE, a
 t_test_time_p_value <- t_test_time$p.value
 t_test_accuracy <- t.test(normal_accuracy, distracted_accuracy, mu = 0, var.equal = FALSE, alternative = "greater", conf.level = 0.95)
 t_test_accuracy_p_value <- t_test_accuracy$p.value
+
+
+# X-axis grid
+x2 <- seq(min(normal_time), max(normal_time), length = 40)
+
+# Normal curve
+fun <- dnorm(x2, mean = mean_normal_time, sd = sd_normal_time)
+fun2 <- dnorm(x2, mean = mean_distracted_time, sd = sd_distracted_time)
+
+# Histogram
+hist(normal_time, prob = TRUE, col = "white",
+     ylim = c(0, max(fun)+0.005),
+     main = "No Distraction Time Distrubution")
+lines(x2, fun, col = 2, lwd = 2) 
+ 
+x2 <- seq(min(distracted_time), max(distracted_time), length = 40)
+
+fun <- dnorm(x2, mean = mean_normal_time, sd = sd_normal_time)
+fun2 <- dnorm(x2, mean = mean_distracted_time, sd = sd_distracted_time)
+
+# Histogram
+hist(distracted_time, prob = TRUE, col = "white",
+     ylim = c(0, max(fun)+0.01),
+     main = "Distraction Time Distrubution")
+lines(x2, fun, col = 2, lwd = 2)
+
+
+x2 <- seq(min(normal_accuracy), max(normal_accuracy), length = 40)
+
+fun <- dnorm(x2, mean = mean_normal_accuracy, sd = sd_normal_accuracy)
+fun2 <- dnorm(x2, mean = mean_distracted_accuracy, sd = sd_distracted_accuracy)
+
+# Histogram
+hist(normal_accuracy, prob = TRUE, col = "white",
+     ylim = c(0, max(fun)+5),
+     main = "No Distraction Accuracy Distrubution")
+lines(x2, fun, col = 2, lwd = 2)
+
+
+x2 <- seq(min(distracted_accuracy), max(distracted_accuracy), length = 40)
+
+fun <- dnorm(x2, mean = mean_normal_accuracy, sd = sd_normal_accuracy)
+fun2 <- dnorm(x2, mean = mean_distracted_accuracy, sd = sd_distracted_accuracy)
+
+# Histogram
+hist(distracted_accuracy, prob = TRUE, col = "white",
+     ylim = c(0, max(fun)+5),
+     main = "Distraction Accuracy Distrubution")
+lines(x2, fun, col = 2, lwd = 2)
